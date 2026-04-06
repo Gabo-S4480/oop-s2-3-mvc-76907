@@ -1,0 +1,86 @@
+﻿@model VgcCollege.Domain.Course
+
+@{
+    ViewData["Title"] = "Create Course";
+}
+
+<h1>Create</h1>
+
+<h4>Course</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="e.g. Applied Computing" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="BranchId" class="control-label">Branch</label>
+                <select asp-for="BranchId" class="form-control" asp-items="ViewBag.BranchId">
+                    <option value="">-- Select Branch --</option>
+                </select>
+                <span asp-validation-for="BranchId" class="text-danger"></span>
+            </div>
+
+            @* NUEVO: Selector de Profesor *@
+            <div class="form-group mb-3">
+                <label asp-for="FacultyProfileId" class="control-label">Assign Teacher</label>
+                <select asp-for="FacultyProfileId" class="form-control" asp-items="ViewBag.FacultyProfileId">
+                    <option value="">-- Select Teacher (Optional) --</option>
+                </select>
+                <span asp-validation-for="FacultyProfileId" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" type="date" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control" type="date" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            @* NUEVO: Campos de Horario *@
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="ScheduleDay" class="control-label">Schedule Day</label>
+                        <input asp-for="ScheduleDay" class="form-control" placeholder="e.g. Mon & Wed" />
+                        <span asp-validation-for="ScheduleDay" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="ScheduleTime" class="control-label">Schedule Time</label>
+                        <input asp-for="ScheduleTime" class="form-control" placeholder="e.g. 09:00 - 11:00" />
+                        <span asp-validation-for="ScheduleTime" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <input type="submit" value="Create Course" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

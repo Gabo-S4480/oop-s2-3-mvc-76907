@@ -1,0 +1,48 @@
+﻿@model VgcCollege.Domain.Course
+
+@{
+    ViewData["Title"] = "Gradebook - " + Model.Name;
+}
+
+<div class="container mt-4">
+    <h2>Gradebook: @Model.Name</h2>
+    <p class="text-muted">Branch: @Model.Branch?.Name | Schedule: @Model.ScheduleDay @Model.ScheduleTime</p>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Email</th>
+                        <th>Current Grade</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrolment in Model.Enrolments)
+                    {
+                        <tr>
+                            <td>@enrolment.Student?.Name</td>
+                            <td>@enrolment.Student?.Email</td>
+                            <td>
+                                <span class="badge @(enrolment.Grade >= 40 ? "bg-success" : "bg-danger")">
+                                    @(enrolment.Grade.HasValue? enrolment.Grade.ToString() + "%" : "No Grade")
+                                </span>
+                            </td>
+                            <td>
+                                <a asp-controller="CourseEnrolments" asp-action="Edit" asp-route-id="@enrolment.Id" class="btn btn-sm btn-outline-primary">
+                                    Update Grade
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="MyDashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
