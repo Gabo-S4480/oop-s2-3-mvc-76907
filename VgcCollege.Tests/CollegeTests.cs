@@ -11,7 +11,7 @@ namespace VgcCollege.Tests
 {
     public class CollegeLogicTests
     {
-        // Método auxiliar para crear un contexto de base de datos limpio en memoria
+        
         private ApplicationDbContext GetInMemoryContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
